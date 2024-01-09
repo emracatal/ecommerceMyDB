@@ -14,6 +14,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axiosInstance from "../api/api";
+import axiosInstanceLocal from "../api/apiLocal";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ export default function ProductList() {
 
   const fetchMoreProducts = () => {
     const apipath = `/products?filter=${filters.filter}&sort=${filters.sort}&limit=${limit}&offset=${offset}&category=${filters.category}`;
-    axiosInstance
+    axiosInstanceLocal
       .get(apipath)
       .then((response) => {
         //console.log("INFINITE RESPONSE: ", response);

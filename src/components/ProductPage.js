@@ -11,6 +11,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import Carousel3 from "./Carousel3";
 import axiosInstance from "../api/api";
+import axiosInstanceLocal from "../api/apiLocal";
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -18,7 +19,7 @@ export default function ProductPage() {
   const history = useHistory();
 
   useEffect(() => {
-    axiosInstance
+    axiosInstanceLocal
       .get(`/products/${productId}`)
       .then((response) => {
         setProduct(response.data);
@@ -50,7 +51,7 @@ export default function ProductPage() {
       {/* product slider */}
       <div className="single-product bg-verylightgray3">
         <div className="container mx-auto max-w-[1050px] min-h-[450px] flex flex-row item-center gap-7 mobile:flex-col mobile:px-10">
-          {product && <Carousel3 image={product.images[0].url} />}
+          {product && <Carousel3 image={product.image} />}
           <div className="right flex max-w-[510px] min-h[450px]">
             <div className="cardbody flex flex-col items-start gap-5">
               <h4 className="font-bold">{product?.name}</h4>

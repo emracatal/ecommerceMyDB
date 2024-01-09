@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRoles } from "../store/actions/globalActions";
+import axiosInstanceLocal from "../api/apiLocal";
 
 export default function SignUp() {
   const {
@@ -59,7 +60,7 @@ export default function SignUp() {
 
   const onSubmit = (data) => {
     const {
-      name,
+      fullName,
       email,
       password,
       role_id,
@@ -68,7 +69,7 @@ export default function SignUp() {
       storeBankAccount,
     } = data;
     const formData = {
-      name,
+      fullName,
       email,
       password,
       role_id,
@@ -82,22 +83,19 @@ export default function SignUp() {
     }
     //console.log("formdata", formData);
     setLoading(true);
-    axiosInstance
-      .post("/signup", formData)
+    axiosInstanceLocal
+      .post("/user/register", formData)
       .then((response) => {
-        toast.success(
-          "🦄 You need to click link in email to activate your account!",
-          {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          }
-        );
+        toast.success("🦄 Registered successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setLoading(false);
         setTimeout(() => {
           history.goBack();
@@ -142,7 +140,7 @@ export default function SignUp() {
           <div className="">
             <input
               className="w-full h-12 rounded-lg border border-solid border-darkblue"
-              {...register("name", {
+              {...register("fullName", {
                 required: "Name is required",
                 minLength: {
                   value: 3,
@@ -257,7 +255,7 @@ export default function SignUp() {
             {roles &&
               roles.reverse().map((role, i) => (
                 <option key={i} value={role.id}>
-                  {role.code}
+                  {role.name}
                 </option>
               ))}
           </select>

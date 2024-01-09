@@ -12,7 +12,7 @@ export const SET_LANGUAGE = "SET_LANGUAGE";
 
 export const fetchRoles = () => async (dispatch) => {
   try {
-    const response = await axiosInstance.get("/roles");
+    const response = await axiosInstanceLocal.get("/roles");
     dispatch({ type: "FETCH_ROLES_SUCCESS", payload: response.data });
   } catch (error) {
     dispatch({ type: "FETCH_ROLES_FAILURE" });

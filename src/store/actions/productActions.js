@@ -1,4 +1,5 @@
 import axiosInstance from "../../api/api";
+import axiosInstanceLocal from "../../api/apiLocal";
 
 export const FETCH_PRODUCTS_REQUEST = "FETCH_PRODUCTS_REQUEST";
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
@@ -13,7 +14,7 @@ export const SET_TOTALPRODUCTS = "SET_TOTALPRODUCTS ";
 export const fetchProducts = (params) => {
   return (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    axiosInstance
+    axiosInstanceLocal
       .get("products", { params })
       .then((res) => {
         dispatch({
